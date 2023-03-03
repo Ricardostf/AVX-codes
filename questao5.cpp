@@ -5,6 +5,10 @@
 
 using namespace std;
 
+/*
+ * Os caracteres serão lidos, convertidos para inteiro e somados com 123.
+ * Após isso, os caracteres (agora convertidos para int), serão guardados no arquivo encriptado.txt
+ */
 void encriptar(){
     ifstream entrada("entrada.txt");
     remove("encriptado.txt");
@@ -31,7 +35,7 @@ void encriptar(){
         charParaInt[tamVetor] = aux;
         tamVetor++;
 
-        if (tamVetor == 8){
+        if (tamVetor == 8){ //se chegou a 8, já se pode guardá-los no registrador de inteiros 32 bits
             tamVetor = 0;
             vetorInt = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(charParaInt));
             vetorInt = _mm256_add_epi32(vetorInt, vetorSoma);
@@ -47,6 +51,10 @@ void encriptar(){
     }
 }
 
+
+/*
+ * Mesmos passos que o método anterior, porém, reverso.
+ */
 void desencriptar(){
     ifstream entrada("encriptado.txt");
     remove("desencriptado.txt");
